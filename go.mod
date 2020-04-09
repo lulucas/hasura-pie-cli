@@ -1,6 +1,6 @@
 module github.com/lulucas/hasura-pie-cli
 
-go 1.13
+go 1.14
 
 require (
 	github.com/jinzhu/configor v1.1.1

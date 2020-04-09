@@ -3,7 +3,7 @@ package module
 const Module = `package {{.Module}}
 
 import (
-	"github.com/lulucas/hasura-pie/v1"
+	"github.com/lulucas/hasura-pie"
 )
 
 type {{.Module}} struct {

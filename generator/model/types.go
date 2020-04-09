@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"github.com/lulucas/hasura-pie-cli/utils"
 	"log"
 	"strings"
 )
@@ -76,10 +77,10 @@ func getStruct(tab string, cols []*column) string {
 			d = *c.Default
 		}
 		body += fmt.Sprintf("\t%s %s // default: %s\n",
-			snake2Camel(c.Name), convertType(c), d)
+			utils.Snake2Camel(c.Name), convertType(c), d)
 	}
 
-	return fmt.Sprintf(structTpl, strings.TrimSuffix(snake2Camel(tab), "s"), body)
+	return fmt.Sprintf(structTpl, strings.TrimSuffix(utils.Snake2Camel(tab), "s"), body)
 }
 
 func getMap(n bool) map[string]string {

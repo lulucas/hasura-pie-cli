@@ -2,12 +2,11 @@ package model
 
 import (
 	"fmt"
+	"github.com/lulucas/hasura-pie-cli/utils"
 	"log"
 	"os/user"
 	"path/filepath"
 )
-
-// From https://github.com/ekhabarov/go-pg-generator
 
 func GenerateModel(options Options, tables ...string) {
 	if options.User == "" {
@@ -57,7 +56,7 @@ func GenerateModel(options Options, tables ...string) {
 		}
 
 		if options.FilePerTable {
-			if err := saveToFile(filepath.Join(options.Dir, t), []byte(pl+data)); err != nil {
+			if err := utils.SaveToFile(filepath.Join(options.Dir, t+".go"), pl+data); err != nil {
 				log.Fatalln(err)
 			}
 			continue
@@ -69,7 +68,7 @@ func GenerateModel(options Options, tables ...string) {
 	if !options.FilePerTable {
 		imports := getImports(mergedCols)
 		result = pl + imports + result
-		if err := saveToFile(filepath.Join(options.Dir, options.OneFileName), []byte(result)); err != nil {
+		if err := utils.SaveToFile(filepath.Join(options.Dir, options.OneFileName+".go"), result); err != nil {
 			log.Fatalln(err)
 		}
 	}

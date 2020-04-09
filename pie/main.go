@@ -3,8 +3,10 @@ package main
 import (
 	"github.com/jinzhu/configor"
 	"github.com/lulucas/hasura-pie-cli/errors"
+	"github.com/lulucas/hasura-pie-cli/generator/app"
 	"github.com/lulucas/hasura-pie-cli/generator/model"
 	"github.com/lulucas/hasura-pie-cli/generator/module"
+	"github.com/lulucas/hasura-pie-cli/generator/project"
 	"github.com/lulucas/hasura-pie-cli/utils"
 	"github.com/urfave/cli/v2"
 	"log"
@@ -32,13 +34,33 @@ func main() {
 	app := &cli.App{
 		Name:    "pie",
 		Usage:   "hasura-pie cli",
-		Version: "0.0.1",
+		Version: "0.1.3",
 		Commands: []*cli.Command{
+			{
+				Name:      "init",
+				Usage:     "initialize a project",
+				ArgsUsage: "todo",
+				Action: func(c *cli.Context) error {
+					return project.GenerateProject()
+				},
+			},
 			{
 				Name:    "generate",
 				Aliases: []string{"g"},
 				Usage:   "generate code",
 				Subcommands: []*cli.Command{
+					{
+						Name:      "app",
+						Aliases:   []string{"a"},
+						Usage:     "generate app",
+						ArgsUsage: "path to generate",
+						Action: func(c *cli.Context) error {
+							if c.NArg() < 1 {
+								return errors.ErrMissingPath
+							}
+							return app.GenerateApp(c.Args().First())
+						},
+					},
 					{
 						Name:      "module",
 						Aliases:   []string{"m"},
