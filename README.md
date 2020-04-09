@@ -7,7 +7,7 @@ A CLI for https://github.com/lulucas/hasura-pie
 Install CLI
 
 ```
-go get -u github.com/lulucas/hasura-pie-cli
+go get -u github.com/lulucas/hasura-pie-cli/pie
 ```
 
 # Document
