@@ -22,14 +22,14 @@ jobs:
       - env:
           CGO_ENABLED: 0
         run: |
-          go build -o functions/business/main functions/business/main.go
+          go build -o app/business/main app/business/main.go
       - env:
           SSH_HOST: ${{ secrets.BUSINESS_SSH_HOST }}
           SSH_USER: ${{ secrets.BUSINESS_SSH_USER }}
           SSH_PASS: ${{ secrets.BUSINESS_SSH_PASS }}
         run: |
           mkdir -p ~/.ssh && ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
-          cd functions/business
+          cd app/business
           sshpass -p $SSH_PASS rsync -avzr --include-from=.rsync --chmod=D755,F755 . $SSH_USER@$SSH_HOST:/app --delete
           sshpass -p $SSH_PASS ssh $SSH_USER@$SSH_HOST "cd /app && docker-compose down --remove-orphans && docker-compose up --build -d"
 `
