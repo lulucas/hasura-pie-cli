@@ -1,9 +1,8 @@
 package module
 
 import (
-	"github.com/lulucas/hasura-pie-cli/v1/errors"
-	"github.com/lulucas/hasura-pie-cli/v1/tpl"
-	"github.com/lulucas/hasura-pie-cli/v1/utils"
+	"github.com/lulucas/hasura-pie-cli/errors"
+	"github.com/lulucas/hasura-pie-cli/utils"
 	"os"
 	"path/filepath"
 	"text/template"
@@ -30,7 +29,7 @@ func GenerateModule(path string) error {
 	}
 	defer f.Close()
 
-	t, err := template.New("module").Parse(tpl.Module)
+	t, err := template.New("module").Parse(Module)
 	if err != nil {
 		return err
 	}

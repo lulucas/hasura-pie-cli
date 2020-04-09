@@ -1,9 +1,9 @@
-package tpl
+package module
 
 const Module = `package {{.Module}}
 
 import (
-	"github.com/lulucas/hasura-pie"
+	"github.com/lulucas/hasura-pie/v1"
 )
 
 type {{.Module}} struct {

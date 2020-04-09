@@ -3,10 +3,10 @@ package main
 
 import (
 	"github.com/jinzhu/configor"
-	"github.com/lulucas/hasura-pie-cli/v1/errors"
-	"github.com/lulucas/hasura-pie-cli/v1/generator/model"
-	"github.com/lulucas/hasura-pie-cli/v1/generator/module"
-	"github.com/lulucas/hasura-pie-cli/v1/utils"
+	"github.com/lulucas/hasura-pie-cli/errors"
+	"github.com/lulucas/hasura-pie-cli/generator/model"
+	"github.com/lulucas/hasura-pie-cli/generator/module"
+	"github.com/lulucas/hasura-pie-cli/utils"
 	"github.com/urfave/cli/v2"
 	"log"
 	"os"
