@@ -7,12 +7,13 @@ import (
 
 var (
 	files = map[string]string{
-		"Dockerfile":         dockerfileTpl,
-		"main.go":            mainTpl,
-		".rsync":             rsyncTpl,
-		".env":               envTpl,
-		".env.prod":          envProdTpl,
-		"docker-compose.yml": dockerComposeTpl,
+		"Dockerfile":              dockerfileTpl,
+		"main.go":                 mainTpl,
+		".rsync":                  rsyncTpl,
+		".env":                    envTpl,
+		".env.prod":               envProdTpl,
+		"docker-compose.yml":      dockerComposeTpl,
+		"docker-compose.prod.yml": dockerComposeProdTpl,
 	}
 )
 

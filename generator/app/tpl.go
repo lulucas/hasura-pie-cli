@@ -90,3 +90,27 @@ volumes:
   db_data:
   redis_data:
 `
+
+const dockerComposeProdTpl = `version: '3.6'
+services:
+  graphql-engine:
+    image: hasura/graphql-engine:v1.2.0-beta.3
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@${POSTGRES_HOST:-127.0.0.1}:${POSTGRES_PORT:-5432}/${POSTGRES_DATABASE:-postgres}
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: anonymous
+      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET:-123456}
+      HASURA_GRAPHQL_JWT_SECRET: |
+        {
+          "type": "HS256",
+          "key": "${APP_JWT_KEY}"
+        }
+      EVENT_ENDPOINT: http://business:${INTERNAL_PORT:-3000}/events
+      ACTION_ENDPOINT: http://business:${INTERNAL_PORT:-3000}/actions
+`

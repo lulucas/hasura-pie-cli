@@ -4,6 +4,7 @@ import (
 	"github.com/jinzhu/configor"
 	"github.com/lulucas/hasura-pie-cli/errors"
 	"github.com/lulucas/hasura-pie-cli/generator/app"
+	"github.com/lulucas/hasura-pie-cli/generator/ci"
 	"github.com/lulucas/hasura-pie-cli/generator/model"
 	"github.com/lulucas/hasura-pie-cli/generator/module"
 	"github.com/lulucas/hasura-pie-cli/generator/project"
@@ -31,7 +32,7 @@ func main() {
 			log.Fatal(err)
 		}
 	}
-	app := &cli.App{
+	a := &cli.App{
 		Name:    "pie",
 		Usage:   "hasura-pie cli",
 		Version: "0.1.3",
@@ -49,6 +50,16 @@ func main() {
 				Aliases: []string{"g"},
 				Usage:   "generate code",
 				Subcommands: []*cli.Command{
+					{
+						Subcommands: []*cli.Command{
+							{
+								Name: "github",
+								Action: func(c *cli.Context) error {
+									return ci.GenerateGithubAction()
+								},
+							},
+						},
+					},
 					{
 						Name:      "app",
 						Aliases:   []string{"a"},
@@ -99,9 +110,9 @@ func main() {
 		},
 	}
 
-	app.EnableBashCompletion = true
+	a.EnableBashCompletion = true
 
-	err := app.Run(os.Args)
+	err := a.Run(os.Args)
 	if err != nil {
 		log.Fatal(err)
 	}
