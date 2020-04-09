@@ -9,11 +9,7 @@ import (
 )
 
 func GenerateModule(path string) error {
-	list := filepath.SplitList(path)
-	if len(list) < 2 {
-		path = filepath.Join(list[0], path)
-	}
-	filename := path + ".go"
+	filename := filepath.Join(path, "module.go")
 
 	if utils.FileExists(filename) {
 		return errors.ErrAlreadyExists
