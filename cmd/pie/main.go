@@ -1,4 +1,3 @@
-//go:generate go build -o example/pie.exe
 package main
 
 import (

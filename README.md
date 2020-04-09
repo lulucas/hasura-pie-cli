@@ -7,7 +7,7 @@ A CLI for https://github.com/lulucas/hasura-pie
 Install CLI
 
 ```
-go get github.com/lulucas/hasura-pie-cli
+go get -u github.com/lulucas/hasura-pie-cli
 ```
 
 # Document
@@ -20,7 +20,15 @@ Generate module
 pie g m account
 ```
 
-Sync action from hasura
+Sync model from postgres tables
+
+```
+# sync specific table
+pie s m users
+
+# sync all tabls
+pie s m
+```
 
 ## Config
 
@@ -30,7 +38,7 @@ Create config.yml in cli work directory
 postgres:
   host: 127.0.0.1
   user: postgres
-  pass: postgres
+  password: postgres
 hasura:
   endpoint: http://localhost:8080
   admin_key: 123
