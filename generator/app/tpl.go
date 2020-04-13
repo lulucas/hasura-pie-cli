@@ -65,6 +65,7 @@ services:
       - db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_DATABASE:-postgres}
 
   redis:
     image: bitnami/redis:5.0
