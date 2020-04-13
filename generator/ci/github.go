@@ -35,8 +35,8 @@ jobs:
           sshpass -p $SSH_PASS ssh $SSH_USER@$SSH_HOST "cd /app && docker-compose down --remove-orphans && docker-compose up --build -d"
 `
 
-func GenerateGithubAction() error {
-	if err := utils.SaveToFile(".github/workflows/ci.yml", githubCITpl); err != nil {
+func GenerateGithubAction(path string) error {
+	if err := utils.SaveToFile(path, githubCITpl); err != nil {
 		return err
 	}
 	return nil

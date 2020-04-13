@@ -38,14 +38,17 @@ func main() {
 	a := &cli.App{
 		Name:    "pie",
 		Usage:   "hasura-pie cli",
-		Version: "0.1.4",
+		Version: "0.1.5",
 		Commands: []*cli.Command{
 			{
 				Name:      "init",
 				Usage:     "initialize a project",
 				ArgsUsage: "todo",
 				Action: func(c *cli.Context) error {
-					return project.GenerateProject()
+					if c.NArg() < 1 {
+						return errors.ErrMissingPath
+					}
+					return project.GenerateProject(c.Args().First())
 				},
 			},
 			{
@@ -58,7 +61,10 @@ func main() {
 							{
 								Name: "github",
 								Action: func(c *cli.Context) error {
-									return ci.GenerateGithubAction()
+									if c.NArg() < 1 {
+										return errors.ErrMissingPath
+									}
+									return ci.GenerateGithubAction(c.Args().First())
 								},
 							},
 						},

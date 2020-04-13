@@ -42,14 +42,12 @@ func main() {
 `
 
 const envTpl = `APP_PRODUCTION=false
-HASURA_GRAPHQL_ADMIN_SECRET=
+APP_ADMIN_SECRET=
 APP_JWT_KEY=
-APP_API_HOST=api.local
-APP_REST_HOST=business.local
 `
 
 const envProdTpl = `APP_PRODUCTION=true
-HASURA_GRAPHQL_ADMIN_SECRET=
+APP_ADMIN_SECRET=
 APP_JWT_KEY=
 APP_API_HOST=api.prod
 APP_REST_HOST=business.prod
@@ -66,7 +64,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
 
   redis:
     image: bitnami/redis:5.0
@@ -89,11 +87,11 @@ services:
       - ./migrations:/hasura-migrations
       - ./metadata:/hasura-metadata
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@${POSTGRES_HOST:-127.0.0.1}:${POSTGRES_PORT:-5432}/${POSTGRES_DATABASE:-postgres}
+      HASURA_GRAPHQL_DATABASE_URL: postgres://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-postgres}:${DB_PORT:-5432}/${DB_DATABASE:-postgres}
       HASURA_GRAPHQL_ENABLE_CONSOLE: "false"
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: anonymous
-      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET:-123456}
+      HASURA_GRAPHQL_ADMIN_SECRET: ${APP_ADMIN_SECRET}
       HASURA_GRAPHQL_JWT_SECRET: |
         {
           "type": "HS256",
@@ -129,11 +127,11 @@ services:
       - ./migrations:/hasura-migrations
       - ./metadata:/hasura-metadata
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@${POSTGRES_HOST:-127.0.0.1}:${POSTGRES_PORT:-5432}/${POSTGRES_DATABASE:-postgres}
+      HASURA_GRAPHQL_DATABASE_URL: postgres://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-127.0.0.1}:${DB_PORT:-5432}/${DB_DATABASE:-postgres}
       HASURA_GRAPHQL_ENABLE_CONSOLE: "false"
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       HASURA_GRAPHQL_UNAUTHORIZED_ROLE: anonymous
-      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
+      HASURA_GRAPHQL_ADMIN_SECRET: ${APP_ADMIN_SECRET}
       HASURA_GRAPHQL_JWT_SECRET: |
         {
           "type": "HS256",

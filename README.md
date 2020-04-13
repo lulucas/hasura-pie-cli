@@ -14,6 +14,12 @@ go get -u github.com/lulucas/hasura-pie-cli/pie
 
 ## Command
 
+Init a project
+
+```
+pie init
+```
+
 Generate module
 
 ```
@@ -37,17 +43,11 @@ Sync module code
 
 sync:
   - remote: infra/db
-    local: infra/db
   - remote: infra/redis
-    local: infra/redis
   - remote: infra/pay
-    local: infra/pay
   - remote: infra/captcha
-    local: infra/captcha
   - remote: infra/sms
-    local: infra/sms
   - remote: account
-    local: account
   - remote: finance
     local: finance
 ```
