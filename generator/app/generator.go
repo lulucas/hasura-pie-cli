@@ -14,6 +14,7 @@ var (
 		".env.prod":               envProdTpl,
 		"docker-compose.yml":      dockerComposeTpl,
 		"docker-compose.prod.yml": dockerComposeProdTpl,
+		"config.yml":              configYmlTpl,
 	}
 )
 

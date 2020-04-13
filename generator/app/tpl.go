@@ -155,3 +155,9 @@ services:
       - ${APP_EXTERNAL_PORT:-8000}
 
 `
+
+const configYmlTpl = `version: 2
+admin_secret: 
+endpoint: http://localhost:8080
+metadata_directory: metadata
+`
