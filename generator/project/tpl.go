@@ -9,6 +9,4 @@ const ignoreTpl = `.idea
 .vscode
 
 *.exe
-
-config.yml
 `

@@ -23,19 +23,19 @@ var (
 )
 
 const (
-	defaultConfigFilename = "config.yml"
+	configFile = "pie.yml"
 )
 
 func main() {
-	if utils.FileExists(defaultConfigFilename) {
-		if err := configor.Load(&config, defaultConfigFilename); err != nil {
+	if utils.FileExists(configFile) {
+		if err := configor.Load(&config, configFile); err != nil {
 			log.Fatal(err)
 		}
 	}
 	a := &cli.App{
 		Name:    "pie",
 		Usage:   "hasura-pie cli",
-		Version: "0.1.3",
+		Version: "0.1.4",
 		Commands: []*cli.Command{
 			{
 				Name:      "init",
@@ -91,6 +91,15 @@ func main() {
 				Aliases: []string{"s"},
 				Usage:   "sync code from hasura or postgres",
 				Subcommands: []*cli.Command{
+					{
+						Name:      "module",
+						Aliases:   []string{"M"},
+						Usage:     "sync module from git",
+						ArgsUsage: "",
+						Action: func(c *cli.Context) error {
+
+						},
+					},
 					{
 						Name:      "model",
 						Aliases:   []string{"m"},
