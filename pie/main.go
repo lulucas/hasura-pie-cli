@@ -5,7 +5,6 @@ import (
 	"github.com/lulucas/hasura-pie-cli/errors"
 	"github.com/lulucas/hasura-pie-cli/generator/app"
 	"github.com/lulucas/hasura-pie-cli/generator/ci"
-	"github.com/lulucas/hasura-pie-cli/generator/model"
 	"github.com/lulucas/hasura-pie-cli/generator/module"
 	"github.com/lulucas/hasura-pie-cli/generator/project"
 	"github.com/lulucas/hasura-pie-cli/utils"
@@ -15,7 +14,11 @@ import (
 )
 
 type Config struct {
-	Postgres model.Options
+	Sync SyncConfig
+}
+
+type SyncConfig struct {
+	Module []module.SyncModuleConfig
 }
 
 var (
@@ -93,25 +96,26 @@ func main() {
 				Subcommands: []*cli.Command{
 					{
 						Name:      "module",
-						Aliases:   []string{"M"},
-						Usage:     "sync module from git",
-						ArgsUsage: "",
-						Action: func(c *cli.Context) error {
-
-						},
-					},
-					{
-						Name:      "model",
 						Aliases:   []string{"m"},
-						Usage:     "sync postgres table to model struct",
-						ArgsUsage: "tables to sync, sync all tables if empty",
+						Usage:     "sync module from git",
+						ArgsUsage: "[git module path] [local path]",
 						Action: func(c *cli.Context) error {
-							if c.NArg() == 0 {
-								model.GenerateModel(config.Postgres)
-							} else {
-								model.GenerateModel(config.Postgres, c.Args().Slice()...)
+							if c.NArg() < 1 {
+								// sync from config
+								if err := module.SyncGit(); err != nil {
+									return err
+								}
+								return module.SyncModuleByConfig(config.Sync.Module)
 							}
-							return nil
+							// specific path
+							localPath := c.Args().First()
+							if c.NArg() > 1 {
+								localPath = c.Args().Get(1)
+							}
+							if err := module.SyncGit(); err != nil {
+								return err
+							}
+							return module.SyncModule(c.Args().First(), localPath)
 						},
 					},
 				},

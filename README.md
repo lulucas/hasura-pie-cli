@@ -30,6 +30,28 @@ pie s m users
 pie s m
 ```
 
+
+Sync module code
+```yaml
+# config.yml
+
+sync:
+  - remote: infra/db
+    local: infra/db
+  - remote: infra/redis
+    local: infra/redis
+  - remote: infra/pay
+    local: infra/pay
+  - remote: infra/captcha
+    local: infra/captcha
+  - remote: infra/sms
+    local: infra/sms
+  - remote: account
+    local: account
+  - remote: finance
+    local: finance
+```
+
 ## Config
 
 Create config.yml in cli work directory

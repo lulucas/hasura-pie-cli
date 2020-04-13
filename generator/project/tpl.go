@@ -9,4 +9,5 @@ const ignoreTpl = `.idea
 .vscode
 
 *.exe
+.modules
 `
