@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"text/template"
 )
 
@@ -67,7 +68,7 @@ func SyncGit() error {
 		}
 		args = append(args, "-C", path, "pull")
 	} else {
-		args = append(args, "clone", fmt.Sprintf("git@%s.git", repo), syncModuleTempDir)
+		args = append(args, "clone", fmt.Sprintf("git@%s.git", strings.Replace(repo, "/", ":", 1)), syncModuleTempDir)
 	}
 	cmd := exec.Command("git", args...)
 

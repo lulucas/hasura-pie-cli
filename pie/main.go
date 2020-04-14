@@ -114,7 +114,7 @@ func main() {
 								return module.SyncModuleByConfig(config.Sync.Module)
 							}
 							// specific path
-							localPath := c.Args().First()
+							localPath := ""
 							if c.NArg() > 1 {
 								localPath = c.Args().Get(1)
 							}
