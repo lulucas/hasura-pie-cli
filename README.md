@@ -17,13 +17,25 @@ go get -u github.com/lulucas/hasura-pie-cli/pie
 Init a project
 
 ```
-pie init
+pie init myproject
 ```
 
 Generate module
 
 ```
 pie g m account
+```
+
+Generate action TODO
+
+```
+pie g a login
+```
+
+Generate event TODO
+
+```
+pie g e user_created
 ```
 
 Sync model from postgres tables
@@ -43,11 +55,6 @@ Sync module code
 
 sync:
   - remote: infra/db
-  - remote: infra/redis
-  - remote: infra/pay
-  - remote: infra/captcha
-  - remote: infra/sms
-  - remote: account
   - remote: finance
     local: finance
 ```
@@ -61,9 +68,17 @@ postgres:
   host: 127.0.0.1
   user: postgres
   password: postgres
-hasura:
-  endpoint: http://localhost:8080
-  admin_key: 123
+
+sync:
+  module:
+    - remote: infra/redis
+    - remote: infra/pay
+    - remote: infra/captcha
+    - remote: infra/sms
+    - remote: account
+    - remote: finance
+    - remote: analysis
+
 ```
 
 # Related project
