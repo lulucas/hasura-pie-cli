@@ -4,11 +4,15 @@ A CLI for https://github.com/lulucas/hasura-pie
 
 # Quick start
 
-Install CLI
+Install Pie CLI
 
 ```
 go get -u github.com/lulucas/hasura-pie-cli/pie
 ```
+
+Install Hasura CLI
+
+https://hasura.io/docs/1.0/graphql/manual/hasura-cli/install-hasura-cli.html
 
 # Document
 
